@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace ountryDataDotnetDemo.Mobile
+namespace CountryDataDotnetDemo.Mobile
 {
     public static class MauiProgram
     {

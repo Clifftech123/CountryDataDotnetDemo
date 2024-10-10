@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace ountryDataDotnetDemo.Mobile
+namespace CountryDataDotnetDemo.Mobile
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

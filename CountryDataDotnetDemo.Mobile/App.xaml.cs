@@ -1,4 +1,4 @@
-﻿namespace ountryDataDotnetDemo.Mobile
+﻿namespace CountryDataDotnetDemo.Mobile
 {
     public partial class App : Application
     {

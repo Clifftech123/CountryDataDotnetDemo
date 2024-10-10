@@ -2,7 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace ountryDataDotnetDemo.Mobile
+namespace CountryDataDotnetDemo.Mobile
 {
     internal class Program : MauiApplication
     {

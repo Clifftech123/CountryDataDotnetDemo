@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace ountryDataDotnetDemo.Mobile
+namespace CountryDataDotnetDemo.Mobile
 {
     public class Program
     {
