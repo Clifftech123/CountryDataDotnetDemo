@@ -1,3 +1,6 @@
+using CountryDataDotnetDemo.API.Interface;
+using CountryDataDotnetDemo.API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -8,6 +11,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddScoped<CountryData.Standard.CountryHelper>();
+builder.Services.AddScoped<ICountryDataServices, CountryDataServices>();
+
 
 var app = builder.Build();
 
