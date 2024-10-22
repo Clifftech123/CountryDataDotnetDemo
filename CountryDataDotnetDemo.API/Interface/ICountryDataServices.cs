@@ -1,13 +1,15 @@
 ﻿namespace CountryDataDotnetDemo.API.Interface
 {
+
     public interface ICountryDataServices
     {
         Task<string> GetCountriesAsync();
         Task<string> GetCountryByCodeAsync(string code);
-        Task<string> GetCountryDataAsync();
-        Task<string> GetRegionsByCountryCodeAsync(string countryCode);
+        Task<string> GetCountryByPhoneCodeAsync(string phoneCode);
+        Task<string> GetCountryDataAsync(int offset = 1, int limit = 20, string? searchQuery = null);
         Task<string> GetCountryFlagAsync(string countryCode);
         Task<string> GetPhoneCodeByCountryShortCodeAsync(string countryCode);
-        Task<string> GetCountryByPhoneCodeAsync(string phoneCode);
+        Task<string> GetRegionsByCountryCodeAsync(string countryCode);
     }
+
 }

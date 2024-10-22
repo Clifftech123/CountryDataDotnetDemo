@@ -1,12 +1,21 @@
 using CountryDataDotnetDemo.Web.Components;
+using CountryDataDotnetDemo.Web.Components.Interface;
+using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load configuration
+var backendBaseUrl = builder.Configuration.GetSection("ApiSettings:BackendBaseUrl").Value;
+var frontendBaseUrl = builder.Configuration.GetSection("ApiSettings:FrontendBaseUrl").Value;
 
 builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(frontendBaseUrl) });
+builder.Services.AddRefitClient<ICountryDataApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(backendBaseUrl));
 
 var app = builder.Build();
 

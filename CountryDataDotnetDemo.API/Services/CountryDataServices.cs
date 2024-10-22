@@ -71,16 +71,30 @@ namespace CountryDataDotnetDemo.API.Services
         /// <summary>
         /// Gets the country data asynchronously.
         /// </summary>
+        /// <param name="offset">The offset for pagination.</param>
+        /// <param name="limit">The limit for pagination.</param>
+        /// <param name="searchQuery">The optional search query.</param>
         /// <returns>A JSON string representing the country data.</returns>
-        public Task<string> GetCountryDataAsync()
+        public Task<string> GetCountryDataAsync(int offset = 1, int limit = 5, string? searchQuery = null)
         {
-            var countryData = _countryHelper.GetCountryData();
-            if (countryData == null)
+            var countries = _countryHelper.GetCountryData();
+
+            if (!string.IsNullOrEmpty(searchQuery))
             {
-                return Task.FromResult("No country data found");
+                searchQuery = searchQuery.ToLower();
+                countries = countries.Where(x =>
+                    x.CountryName.ToLower().Contains(searchQuery)
+                ).ToList();
             }
 
-            return Task.FromResult(JsonConvert.SerializeObject(countryData, Formatting.Indented));
+            var paginatedCountries = countries.Skip((offset - 1) * limit).Take(limit).ToList();
+
+            if (paginatedCountries == null || !paginatedCountries.Any())
+            {
+                return Task.FromResult("No countries found");
+            }
+
+            return Task.FromResult(JsonConvert.SerializeObject(paginatedCountries, Formatting.Indented));
         }
 
         /// <summary>
@@ -150,7 +164,7 @@ namespace CountryDataDotnetDemo.API.Services
             {
                 if (disposing)
                 {
-
+                    // Dispose managed resources here.
                 }
 
                 // Dispose unmanaged resources here.

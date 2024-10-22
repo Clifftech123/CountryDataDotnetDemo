@@ -1,7 +1,27 @@
 ﻿@page "/"
+@using CountryDataDotnetDemo.Web.Components.Interface
+@inject ICountryDataApi CountryDataApi
+@rendermode InteractiveServer
 
-<PageTitle>Home</PageTitle>
+<h3>Countries</h3>
 
-<h1>Hello, world!</h1>
+<ul>
+    @if (countries != null)
+    {
+        foreach (var country in countries)
+        {
+            <li>@country</li>
+        }
+    }
+</ul>
 
-Welcome to your new app.
+@code {
+    private List<string>? countries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var countriesJson = await CountryDataApi.GetCountriesAsync();
+        countries = System.Text.Json.JsonSerializer.Deserialize<List<string>>(countriesJson);
+    }
+}
+
