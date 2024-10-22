@@ -4,11 +4,13 @@ using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Load configuration
 var backendBaseUrl = builder.Configuration.GetSection("ApiSettings:BackendBaseUrl").Value;
 var frontendBaseUrl = builder.Configuration.GetSection("ApiSettings:FrontendBaseUrl").Value;
 
-builder.AddServiceDefaults();
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

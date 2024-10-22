@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CountryDataDotnetDemo.net.ServiceDefaults\CountryDataDotnetDemo.net.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\CountryDataDotnetDemo.net.ServiceDefaults\CountryDataDotnetDemo.net.ServiceDefaults.csproj" />
   </ItemGroup>
+
+
 
 </Project>
