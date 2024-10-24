@@ -1,27 +1,123 @@
 ﻿@page "/"
+@using CountryData.Standard
 @using CountryDataDotnetDemo.Web.Components.Interface
+@using System.Text.Json
 @inject ICountryDataApi CountryDataApi
 @rendermode InteractiveServer
 
-<h3>Countries</h3>
+<div>
+    <input type="text" @bind="searchQuery" placeholder="Search by name" />
+    <button @onclick="Search">Search</button>
+</div>
 
-<ul>
-    @if (countries != null)
-    {
-        foreach (var country in countries)
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Flag</th>
+            <th scope="col">Phone Code</th>
+            <th scope="col">Country Code</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (countries != null)
         {
-            <li>@country</li>
+            foreach (var country in countries)
+            {
+                <tr>
+                    <td>@country.CountryName</td>
+                    <td>@country.CountryFlag</td>
+                    <td>@country.PhoneCode</td>
+                    <td>@country.CountryShortCode</td>
+                </tr>
+            }
         }
-    }
-</ul>
+    </tbody>
+</table>
+
+<div>
+    <button type="button" class="btn btn-primary" @onclick="PreviousPage" disabled="@(!CanGoPrevious)">Previous</button>
+    <button type="button" class="btn btn-secondary" @onclick="NextPage" disabled="@(!CanGoNext)">Next</button>
+</div>
 
 @code {
-    private List<string>? countries;
+    /// <summary>
+    /// List of countries to be displayed.
+    /// </summary>
+    private IEnumerable<Country>? countries;
 
+    /// <summary>
+    /// Current page offset for pagination.
+    /// </summary>
+    private int offset = 1;
+
+    /// <summary>
+    /// Number of countries to display per page.
+    /// </summary>
+    private int limit = 5;
+
+    /// <summary>
+    /// Search query for filtering countries by name.
+    /// </summary>
+    private string? searchQuery;
+
+    /// <summary>
+    /// Indicates if the "Previous" button should be enabled.
+    /// </summary>
+    private bool CanGoPrevious => offset > 1;
+
+    /// <summary>
+    /// Indicates if the "Next" button should be enabled.
+    /// </summary>
+    private bool CanGoNext => countries != null && countries.Count() == limit;
+
+    /// <summary>
+    /// Called when the component is initialized. Loads the initial set of countries.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        var countriesJson = await CountryDataApi.GetCountriesAsync();
-        countries = System.Text.Json.JsonSerializer.Deserialize<List<string>>(countriesJson);
+        await LoadCountries();
+    }
+
+    /// <summary>
+    /// Loads the countries from the API based on the current offset, limit, and search query.
+    /// </summary>
+    private async Task LoadCountries()
+    {
+        var jsonString = await CountryDataApi.GetCountryDataAsync(offset, limit, searchQuery);
+        countries = JsonSerializer.Deserialize<IEnumerable<Country>>(jsonString);
+    }
+
+    /// <summary>
+    /// Handles the search action. Resets the offset and loads the countries based on the search query.
+    /// </summary>
+    private async Task Search()
+    {
+        offset = 1;
+        await LoadCountries();
+    }
+
+    /// <summary>
+    /// Handles the "Previous" button click. Decrements the offset and loads the previous set of countries.
+    /// </summary>
+    private async Task PreviousPage()
+    {
+        if (CanGoPrevious)
+        {
+            offset--;
+            await LoadCountries();
+        }
+    }
+
+    /// <summary>
+    /// Handles the "Next" button click. Increments the offset and loads the next set of countries.
+    /// </summary>
+    private async Task NextPage()
+    {
+        if (CanGoNext)
+        {
+            offset++;
+            await LoadCountries();
+        }
     }
 }
-

@@ -1,3 +1,4 @@
+using CountryData.Standard;
 using CountryDataDotnetDemo.Web.Components;
 using CountryDataDotnetDemo.Web.Components.Interface;
 using Refit;
@@ -10,7 +11,7 @@ builder.AddServiceDefaults();
 var backendBaseUrl = builder.Configuration.GetSection("ApiSettings:BackendBaseUrl").Value;
 var frontendBaseUrl = builder.Configuration.GetSection("ApiSettings:FrontendBaseUrl").Value;
 
-
+builder.Services.AddSingleton<CountryHelper>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

@@ -7,11 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CountryData.Standard" Version="1.4.1" />
     <PackageReference Include="Refit.HttpClientFactory" Version="7.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\CountryDataDotnetDemo.net.ServiceDefaults\CountryDataDotnetDemo.net.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Services\" />
   </ItemGroup>
 
  
