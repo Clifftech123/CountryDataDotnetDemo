@@ -75,7 +75,7 @@ namespace CountryDataDotnetDemo.API.Services
         /// <param name="limit">The limit for pagination.</param>
         /// <param name="searchQuery">The optional search query.</param>
         /// <returns>A JSON string representing the country data.</returns>
-        public Task<string> GetCountryDataAsync(int offset = 1, int limit = 5, string? searchQuery = null)
+        public Task<string> GetCountryDataAsync(int offset = 1, int limit = 10, string? searchQuery = null)
         {
             var countries = _countryHelper.GetCountryData();
 

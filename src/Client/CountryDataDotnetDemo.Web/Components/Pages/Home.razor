@@ -21,8 +21,11 @@
     </thead>
     <tbody>
         @if (countries != null)
+
         {
+
             foreach (var country in countries)
+
             {
                 <tr>
                     <td>@country.CountryName</td>
@@ -31,6 +34,7 @@
                     <td>@country.CountryShortCode</td>
                 </tr>
             }
+
         }
     </tbody>
 </table>
@@ -41,83 +45,87 @@
 </div>
 
 @code {
-    /// <summary>
-    /// List of countries to be displayed.
-    /// </summary>
     private IEnumerable<Country>? countries;
 
-    /// <summary>
-    /// Current page offset for pagination.
-    /// </summary>
     private int offset = 1;
 
-    /// <summary>
-    /// Number of countries to display per page.
-    /// </summary>
-    private int limit = 5;
+    private int limit = 10;
 
-    /// <summary>
-    /// Search query for filtering countries by name.
-    /// </summary>
     private string? searchQuery;
 
-    /// <summary>
-    /// Indicates if the "Previous" button should be enabled.
-    /// </summary>
+
+
     private bool CanGoPrevious => offset > 1;
 
-    /// <summary>
-    /// Indicates if the "Next" button should be enabled.
-    /// </summary>
     private bool CanGoNext => countries != null && countries.Count() == limit;
 
-    /// <summary>
-    /// Called when the component is initialized. Loads the initial set of countries.
-    /// </summary>
-    protected override async Task OnInitializedAsync()
+
+
+    protected override async Task OnParametersSetAsync()
+
     {
+
         await LoadCountries();
+
     }
 
-    /// <summary>
-    /// Loads the countries from the API based on the current offset, limit, and search query.
-    /// </summary>
+
+
     private async Task LoadCountries()
+
     {
+
         var jsonString = await CountryDataApi.GetCountryDataAsync(offset, limit, searchQuery);
+
         countries = JsonSerializer.Deserialize<IEnumerable<Country>>(jsonString);
+
     }
 
-    /// <summary>
-    /// Handles the search action. Resets the offset and loads the countries based on the search query.
-    /// </summary>
+
+
     private async Task Search()
+
     {
+
         offset = 1;
+
         await LoadCountries();
+
     }
 
-    /// <summary>
-    /// Handles the "Previous" button click. Decrements the offset and loads the previous set of countries.
-    /// </summary>
+
+
     private async Task PreviousPage()
+
     {
+
         if (CanGoPrevious)
+
         {
+
             offset--;
+
             await LoadCountries();
+
         }
+
     }
 
-    /// <summary>
-    /// Handles the "Next" button click. Increments the offset and loads the next set of countries.
-    /// </summary>
+
+
     private async Task NextPage()
+
     {
+
         if (CanGoNext)
+
         {
+
             offset++;
+
             await LoadCountries();
+
         }
+
     }
 }

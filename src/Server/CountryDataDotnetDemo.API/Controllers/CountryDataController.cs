@@ -55,7 +55,7 @@ namespace CountryDataDotnetDemo.API.Controllers
         /// <returns>The paginated country data.</returns>
         [HttpGet]
         [Route("countrydata")]
-        public async Task<IActionResult> GetCountryDataAsync([FromQuery] int offset = 1, [FromQuery] int limit = 5, string? searchQuery = null)
+        public async Task<IActionResult> GetCountryDataAsync([FromQuery] int offset = 1, [FromQuery] int limit = 10, string? searchQuery = null)
         {
             var countryData = await _countryDataServices.GetCountryDataAsync(offset, limit, searchQuery);
             return Ok(countryData);

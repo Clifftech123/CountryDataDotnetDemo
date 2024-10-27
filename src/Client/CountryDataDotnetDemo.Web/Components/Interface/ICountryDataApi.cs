@@ -30,7 +30,7 @@ namespace CountryDataDotnetDemo.Web.Components.Interface
         /// <param name="searchQuery">The search query to filter countries by name.</param>
         /// <returns>A JSON string containing the country data.</returns>
         [Get("/api/countrydata/countrydata")]
-        Task<string> GetCountryDataAsync([Query] int offset = 1, [Query] int limit = 5, [Query] string? searchQuery = null);
+        Task<string> GetCountryDataAsync([Query] int offset = 1, [Query] int limit = 10, [Query] string? searchQuery = null);
 
         /// <summary>
         /// Gets the regions of a country by its code.
