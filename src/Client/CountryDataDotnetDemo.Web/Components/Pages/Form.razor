@@ -57,7 +57,7 @@
                                         <label for="country" class="form-label">Country</label>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 form-floating mb-2">
                                     <select class="form-control" @bind=" phoneCode" id="country" required>
                                         <option value="">Select  phoneCode</option>
                                         @if (countries != null)
@@ -67,12 +67,15 @@
                                             foreach (var country in countries)
 
                                             {
-                                                <option value="@country.PhoneCode"> <span> @country.CountryFlag   
+                                                <option value="@country.PhoneCode"> 
+                                                    <span> @country.CountryShortCode  </span> 
+                                                    <span> @country.CountryFlag   
                                                     </span>       @country.PhoneCode </option>
                                             }
 
                                         }
                                     </select>
+                                    <label for="country" class="form-label"> Phone Code  </label>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check">
