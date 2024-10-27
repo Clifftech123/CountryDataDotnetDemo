@@ -14,7 +14,7 @@ To get started with this demo:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Clifftech123/CountryDataDotnetDemo.net.git
+   git clone https://github.com/Clifftech123/CountryDataDotnetDemo.git
    ```
 
 2. Navigate to the project directory:
